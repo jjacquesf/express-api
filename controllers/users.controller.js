@@ -4,11 +4,12 @@ const baseURL = 'https://jsonplaceholder.typicode.com/users';
 const controller = { };
 
 controller.getAll = (req, res) => {
+
     const url = baseURL;
     fetch(url)
         .then((res) => res.json())
         .then((data) => {
-            res.send({ data });
+            res.json(data);
         })
         .catch((err) => {
             res.send(err);

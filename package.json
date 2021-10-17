@@ -2,11 +2,11 @@
   "name": "express-api",
   "version": "0.0.0",
   "private": true,
-  "type":"module",
+  "type": "module",
   "scripts": {
     "start": "DEBUG=express-api:* node ./bin/www",
     "test": "jest",
-    "test:watch": "jest --watchAll"
+    "test:watch": "jest --watchAll --detectOpenHandles"
   },
   "dependencies": {
     "cookie-parser": "~1.4.4",
