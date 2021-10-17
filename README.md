@@ -1,24 +1,22 @@
-# Express API for JSONPlaceholder
+# Express API
 
-This is a REST API application made with Express. It retrieves user data from [JSONPlaceholder](https://jsonplaceholder.typicode.com/).
-
-This Express API was created for [How to Generate Documentation for an Express API with Swagger UI and JSDoc](https://dev.to/kabartolo/how-to-document-an-express-api-with-swagger-ui-and-jsdoc-50do).
+This is a REST API application made with Express. 
 
 ## Installation
 
 First, clone the repository:
 
 ```sh
-git clone https://github.com/kabartolo/jsonplaceholder-express-api test-api 
+git clone https://github.com/jjacquesf/express-api.git express-api
 
 ```
 
-Replace `test-api` with the directory name of your choosing.
+Replace `express-api` with the directory name of your choosing.
 
 Next, run the following commands to start the Express server:
 
 ```sh
-cd test-api
+cd express-api
 npm install
 npm run start
 
