@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const controller = require('../controllers/users.controller');
+const auth = require('../utils/auth.controller');
 
 /**
  * @swagger
@@ -17,6 +18,11 @@ const controller = require('../controllers/users.controller');
  *           type: string
  *           description: The user's name.
  *           example: Leanne Graham
+  *     GenericResponse:
+ *       type: object
+ *       properties:
+ *         success:
+ *           type: boolean
  */
 
 /**
@@ -63,10 +69,80 @@ router.get('/', controller.getAll);
 */
 router.get('/:id', controller.getOne);
 
-router.post('/', controller.create);
+ /**
+  * @swagger
+ * /users:
+ *   post:
+ *     summary: Create user with data sent
+ *     description: Create user with data sent
+ *     parameters:
+ *       - in: path
+ *         name: name
+ *         required: true
+ *         description: Name of the user
+ *         schema:
+ *           type: string
+  *       - in: path
+ *         name: email
+ *         required: true
+ *         description: Email of the user
+ *         schema:
+ *           type: string
+ *           fotmat: email
+ *     responses:
+ *       200:
+ *         description: Success true if user deleted otherwise false.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/GenericResponse'
+*/
+router.post('/', auth.isLoggedIn, controller.create);
 
-router.put('/:id', controller.updateOne);
+ /**
+  * @swagger
+ * /users/{id}:
+ *   put:
+ *     summary: Update user by id
+ *     description: Update user by id
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         description: Numeric ID of the user to delete.
+ *         schema:
+ *           type: integer
+ *     responses:
+ *       200:
+ *         description: Success true if user deleted otherwise false.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/GenericResponse'
+*/
+router.put('/:id', auth.isLoggedIn, controller.updateOne);
 
-router.delete('/:id', controller.delete);
+ /**
+  * @swagger
+ * /users/{id}:
+ *   delete:
+ *     summary: Delete user by id
+ *     description: Delete the user with id 
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         description: Numeric ID of the user to delete.
+ *         schema:
+ *           type: integer
+ *     responses:
+ *       200:
+ *         description: Success true if user deleted otherwise false.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/GenericResponse'
+*/
+router.delete('/:id', auth.isLoggedIn, controller.delete);
 
 module.exports = router;
