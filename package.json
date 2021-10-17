@@ -2,8 +2,11 @@
   "name": "jsonplaceholder-express-api",
   "version": "0.0.0",
   "private": true,
+  "type":"module",
   "scripts": {
-    "start": "DEBUG=jsonplaceholder-express-api:* node ./bin/www"
+    "start": "DEBUG=jsonplaceholder-express-api:* node ./bin/www",
+    "test": "jest",
+    "test:watch": "jest --watchAll"
   },
   "dependencies": {
     "cookie-parser": "~1.4.4",
@@ -15,5 +18,9 @@
     "pug": "2.0.0-beta11",
     "swagger-jsdoc": "5.0.1",
     "swagger-ui-express": "^4.1.6"
+  },
+  "devDependencies": {
+    "jest": "^27.2.5",
+    "supertest": "^6.1.6"
   }
 }

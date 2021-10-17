@@ -1,8 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const fetch = require('node-fetch');
-
-const baseURL = 'https://jsonplaceholder.typicode.com/users';
+const controller = require('../controllers/users.controller');
 
 /**
  * @swagger
@@ -38,30 +36,9 @@ const baseURL = 'https://jsonplaceholder.typicode.com/users';
  *                 data:
  *                   type: array
  *                   items:
- *                     type: object
- *                     properties:
- *                       id:
- *                         type: integer
- *                         description: The user ID.
- *                         example: 0
- *                       name:
- *                         type: string
- *                         description: The user's name.
- *                         example: Leanne Graham
+ *                     $ref: '#/components/schemas/User'
  */
-router.get('/', function(req, res) {
-  const url = baseURL;
-
-  fetch(url)
-  .then((res) => res.json())
-  .then((data) => {
-    res.send({ data });
-  })
-  .catch((err) => {
-    res.send(err);
-  });
-
-});
+router.get('/', controller.getAll);
 
  /**
   * @swagger
@@ -82,87 +59,14 @@ router.get('/', function(req, res) {
  *         content:
  *           application/json:
  *             schema:
- *               type: object
- *               properties:
- *                 data:
- *                   type: object
- *                   properties:
- *                     id:
- *                       type: integer
- *                       description: The user ID.
- *                       example: 0
- *                     name:
- *                       type: string
- *                       description: The user's name.
- *                       example: Leanne Graham
+ *               $ref: '#/components/schemas/User'
 */
-router.get('/:id', function(req,res) {
-  const userID = req.params.id || '';
-  const url = `${baseURL}/${userID}`;
+router.get('/:id', controller.getOne);
 
-  fetch(url)
-  .then((res) => res.json())
-  .then((data) => {
-    res.send({ data });
-  })
-  .catch((err) => {
-    res.send(err);
-  });
-});
+router.post('/', controller.create);
 
-router.post('/', function(req, res) {
-  const url = baseURL;
+router.put('/:id', controller.updateOne);
 
-  fetch(url, {
-    method: 'POST',
-    body: JSON.stringify(req.body),
-    headers: {
-      'Content-type': 'application/json',
-    },
-  })
-  .then((res) => res.json())
-  .then((data) => {
-    res.send({ data });
-  })
-  .catch((err) => {
-    res.send(err);
-  });
-});
-
-router.put('/:id', function(req, res) {
-  const userID = req.params.id || '';
-  const url = `${baseURL}/${userID}`;
-
-  fetch(url, {
-    method: 'PUT',
-    body: JSON.stringify(req.body),
-    headers: {
-      'Content-type': 'application/json',
-    },
-  })
-  .then((res) => res.json())
-  .then((data) => {
-    res.send({ data });
-  })
-  .catch((err) => {
-    res.send(err);
-  });
-});
-
-router.delete('/:id', function(req, res) {
-  const userID = req.params.id || '';
-  const url = `${baseURL}/${userID}`;
-
-  fetch(url, {
-    method: 'DELETE',
-  })
-  .then((res) => res.json())
-  .then((data) => {
-    res.send({ data });
-  })
-  .catch((err) => {
-    res.send(err);
-  });
-});
+router.delete('/:id', controller.delete);
 
 module.exports = router;
